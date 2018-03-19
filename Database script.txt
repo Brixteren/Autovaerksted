@@ -1,0 +1,53 @@
+create table Kunde (
+kundeID int identity(1357, 34) primary key,
+kundeFornavn nvarchar(max),
+kundeEfternavn nvarchar(max),
+kundeAdresse nvarchar(max)
+)
+go
+
+create table Biler (
+bilID int identity(5, 32) primary key,
+kundeID int foreign key references Kunde(kundeID),
+bilRegNr int,
+bilMærke nvarchar(max),
+bilModel nvarchar(max),
+bilAargang int,
+bilKm int,
+bilBraendstof nvarchar(max)
+)
+go
+
+create table Ordre (
+ordreID int identity(2153, 45) primary key,
+kundeID int foreign key references Kunde(kundeID),
+bilID int foreign key references Biler(bilID),
+problem nvarchar(max),
+dato date
+)
+go
+
+insert into Kunde(kundeFornavn, kundeEfternavn, kundeAdresse) values ('John', 'Doe', 'Testing address 2')
+insert into Kunde(kundeFornavn, kundeEfternavn, kundeAdresse) values ('Johnnny', 'Doeey', 'Testing alot 46')
+insert into Kunde(kundeFornavn, kundeEfternavn, kundeAdresse) values ('Test', 'Name', 'this address is shit 8')
+insert into Kunde(kundeFornavn, kundeEfternavn, kundeAdresse) values ('Check', 'Checker', 'Lol address 97')
+
+select * from Kunde where '%yes%' in (kundeFornavn)
+
+delete kunde where kundeID in (44)
+
+insert into Biler(kundeID, bilRegNr, bilMærke, bilModel, bilAargang, bilKm, bilBraendstof) values ('1357', '45296731', 'Skoda', 'Fabia', 2004, 270900, 'Benzin')
+insert into Biler(kundeID, bilRegNr, bilMærke, bilModel, bilAargang, bilKm, bilBraendstof) values ('1357', '74932054', 'Volkswagen', 'Golf 4 GTI', 2013, 134450, 'Benzin')
+insert into Biler(kundeID, bilRegNr, bilMærke, bilModel, bilAargang, bilKm, bilBraendstof) values ('1391', '30294736', 'Seat', 'Leon', 2010, 178400, 'Benzin')
+insert into Biler(kundeID, bilRegNr, bilMærke, bilModel, bilAargang, bilKm, bilBraendstof) values ('1425', '70485938', 'Volkswagen', 'Passat', 2008, 317100, 'Benzin')
+insert into Biler(kundeID, bilRegNr, bilMærke, bilModel, bilAargang, bilKm, bilBraendstof) values ('1459', '39405729', 'Opel', 'Insigna', 2012, 60380, 'Diesel')
+
+select * from Biler
+
+insert into Ordre(kundeID, bilID, problem, dato) values ('1357', '5', 'Har fået skiftet udstødning', '2017-05-27')
+insert into Ordre(kundeID, bilID, problem, dato) values ('1357', '37', 'Har fået udrettet en bule', '2018-01-16')
+insert into Ordre(kundeID, bilID, problem, dato) values ('1391', '69', 'Har fået renset motor', '2016-11-21')
+insert into Ordre(kundeID, bilID, problem, dato) values ('1425', '101', 'Har fået skiftet sæder', '2017-09-05')
+insert into Ordre(kundeID, bilID, problem, dato) values ('1459', '133', 'Har fået repareret gearkasse', '2018-03-14')
+
+select * from Ordre
